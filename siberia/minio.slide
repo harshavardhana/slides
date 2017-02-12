@@ -1,0 +1,62 @@
+Minio loves Go
+Cloud Native Object Storage
+
+[[https://slack.minio.io][slack.minio.io]]
+
+Harshavardhana
+@y4m4
+
+* Filesystem
+       $ docker run --name minio -p 9000:9000 minio/minio server /dir1
+.image browser.png
+
+* Standalone Erasure Code and Bitrot Protection
+       $ docker run --name minio -p 9000:9000 minio/minio server /dir{1..16}
+.image erasure-code.png
+
+* Distributed Erasure Code and Bitrot Protection
+       $ docker run --name minio -p 9000:9000 minio/minio server http://10.1.10.100/dir{1..16}
+.image distributed-erasure.png
+
+* Minio Client CLI
+.image terminal.png
+
+* Minio Client SDK - Hello World
+	// Initialize a new s3Client.
+	s3Client, err := minio.New("play.minio.io:9000", "YOUR-ACCESSKEYID",
+		"YOUR-SECRETACCESSKEY", true)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	// Read file and upload.
+	_, err = s3Client.FPutObject("my-bucketname", "my-objectname",
+		"~/Videos/my-movie.avi", "application/video")
+	if err != nil {
+		log.Fatalln(err)
+	}
+Visit here for full example [[https://github.com/minio/minio-go/blob/master/examples/s3/fputobject.go][fputobject.go]]
+
+* Pitfalls of Monolith Architecture
+
+- Grand Unified System
+- Massively Scalable
+- Complex Algorithms
+- Intelligent Self-managing
+
+* Minio Architecture (Cloud Native)
+.image cloud-native.png
+
+* Minio Architecture (Multitenant)
+.image multi-tenant.png
+
+* Roadmap
+.image future.png
+
+* Object Storage
+
+- No more POSIX. Kernel free!
+- Certificate based trust 
+- Free to choose any language
+- Stick to Amazon S3 APIs
+- HTTP is the new TCP/IP
