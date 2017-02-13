@@ -6,36 +6,86 @@ Cloud Native Object Storage
 Harshavardhana
 @y4m4
 
-* Filesystem
-       $ docker run --name minio -p 9000:9000 minio/minio server /dir1
-.image browser.png
+* What is Minio?
 
-* Standalone Erasure Code and Bitrot Protection
-       $ docker run --name minio -p 9000:9000 minio/minio server /dir{1..16}
-.image erasure-code.png
+.image talks.png
 
-* Distributed Erasure Code and Bitrot Protection
-       $ docker run --name minio -p 9000:9000 minio/minio server http://10.1.10.100/dir{1..16}
-.image distributed-erasure.png
+* Backends
 
-* Minio Client CLI
-.image terminal.png
+Minio currently implements two types of backends.
 
-* Minio Client SDK - Hello World
-	// Initialize a new s3Client.
-	s3Client, err := minio.New("play.minio.io:9000", "YOUR-ACCESSKEYID",
-		"YOUR-SECRETACCESSKEY", true)
-	if err != nil {
-		log.Fatalln(err)
-	}
+   |    Minio    | FS | Erasure | Stability |
+   |-------------|----|---------|-----------|
+   | Standalone  | xx |   xx    |   Stable  |
+   | Distributed | xx |   xx    |   Stable  |
 
-	// Read file and upload.
-	_, err = s3Client.FPutObject("my-bucketname", "my-objectname",
-		"~/Videos/my-movie.avi", "application/video")
-	if err != nil {
-		log.Fatalln(err)
-	}
-Visit here for full example [[https://github.com/minio/minio-go/blob/master/examples/s3/fputobject.go][fputobject.go]]
+.image gopher.png
+
+* FS
+       $ ./minio server /dir1
+       Endpoint:  http://192.168.1.106:9000  http://127.0.0.1:9000
+       AccessKey: USWUXHGYZQYFYFFIT3RE
+       SecretKey: MOJRH0mkL1IPauahWITSVvyDrQbEEIwljvmxdq03
+       Region:    us-east-1
+       SQS ARNs:  <none>
+
+       Browser Access:
+          http://192.168.1.106:9000  http://127.0.0.1:9000
+
+       Command-line Access: https://docs.minio.io/docs/minio-client-quickstart-guide
+          $ mc config host add myminio http://192.168.1.106:9000 USWUXHGYZQYFYFFIT3RE MOJRH0mkL1IPauahWITSVvyDrQbEEIwljvmxdq03
+
+       Object API (Amazon S3 compatible):
+       Go:         https://docs.minio.io/docs/golang-client-quickstart-guide
+       Java:       https://docs.minio.io/docs/java-client-quickstart-guide
+       Python:     https://docs.minio.io/docs/python-client-quickstart-guide
+       JavaScript: https://docs.minio.io/docs/javascript-client-quickstart-guide
+
+       Drive Capacity: 93 GiB Free, 165 GiB Total
+
+* Erasure Code
+       $ minio server /dir1 /dir2 /dir3 ... /dir8
+
+       Initializing data volume for the first time.
+       [01/08] /dir1 - 55 GiB online
+       ...
+       ...
+       [08/08] /dir8 - 55 GiB online
+
+       Endpoint:  http://192.168.1.106:9000  http://127.0.0.1:9000
+       AccessKey: USWUXHGYZQYFYFFIT3RE
+       SecretKey: MOJRH0mkL1IPauahWITSVvyDrQbEEIwljvmxdq03
+       Region:    us-east-1
+       SQS ARNs:  <none>
+
+       Browser Access:
+          http://192.168.1.106:9000  http://127.0.0.1:9000
+       ...
+       ...
+       Drive Capacity: 92 GiB Free, 220 GiB Total
+       Status:         8 Online, 0 Offline. We can withstand [4] more drive failure(s).
+
+* Distributed
+       $ minio server http://192.168.1.11/export1 http://192.168.1.12/export2 http://192.168.1.13/export3 \
+                        http://192.168.1.14/export4 http://192.168.1.15/export5 \
+                        http://192.168.1.16/export6 http://192.168.1.17/export7 \
+                        http://192.168.1.18/export8
+       ...
+       Drive Capacity: 92 GiB Free, 220 GiB Total
+       Status:         8 Online, 0 Offline. We can withstand [4] more drive failure(s).
+
+.image distributed.png
+
+* Erasure Code and Bitrot Protection
+
+.image erasurecode.png
+
+* Tools
+
+- Minio Client (mc) CLI.
+- Minio Client SDKs for Go, Java, JavaScript and Python.
+
+.image biplane.png
 
 * Pitfalls of Monolith Architecture
 
@@ -44,14 +94,16 @@ Visit here for full example [[https://github.com/minio/minio-go/blob/master/exam
 - Complex Algorithms
 - Intelligent Self-managing
 
+.image pitfallsign.jpg
+
 * Minio Architecture (Cloud Native)
-.image cloud-native.png
+.image cloudnative.png
 
 * Minio Architecture (Multitenant)
-.image multi-tenant.png
+.image multitenant.png
 
 * Roadmap
-.image future.png
+.image roadmap.png
 
 * Object Storage
 
@@ -60,3 +112,10 @@ Visit here for full example [[https://github.com/minio/minio-go/blob/master/exam
 - Free to choose any language
 - Stick to Amazon S3 APIs
 - HTTP is the new TCP/IP
+
+* Reference Physical Hardware
+
+- [[http://www.qct.io/Product/Servers/Rackmount-Servers/2U/QuantaGrid-D51B-2U-p256c77c70c83c118][Quanta Grid D51B-2U (OCP Compliant)]]
+- [[http://www.cisco.com/c/en/us/products/servers-unified-computing/ucs-c240-m4-rack-server/index.html][Cisco UCS C240 M4 Rack Server]]
+- [[http://ark.intel.com/products/88286][Intel® Server System R2312WTTYSR]]
+- Works on ARMv6, v7, v8.
