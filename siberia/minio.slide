@@ -1,14 +1,12 @@
 Minio loves Go
 Cloud Native Object Storage
 
-[[https://slack.minio.io][slack.minio.io]]
-
 Harshavardhana
 @y4m4
 
 * What is Minio?
 
-.image talks.png
+.image announce.png
 
 * Backends
 
@@ -19,9 +17,9 @@ Minio currently implements two types of backends.
    | Standalone  | xx |   xx    |   Stable  |
    | Distributed | xx |   xx    |   Stable  |
 
-.image gopher.png
+.image curious.png
 
-* FS
+* FS (Filesystem)
        $ ./minio server /dir1
        Endpoint:  http://192.168.1.106:9000  http://127.0.0.1:9000
        AccessKey: USWUXHGYZQYFYFFIT3RE
@@ -92,15 +90,20 @@ Minio currently implements two types of backends.
 - Grand Unified System
 - Massively Scalable
 - Complex Algorithms
-- Intelligent Self-managing
+- All Eggs In One Basket
 
 .image pitfallsign.jpg
 
 * Minio Architecture (Cloud Native)
 .image cloudnative.png
 
-* Minio Architecture (Multitenant)
-.image multitenant.png
+* Questions?
+
+[[https://slack.minio.io][slack.minio.io]]
+
+.image graduate.png
+
+* Thank you
 
 * Roadmap
 .image roadmap.png
