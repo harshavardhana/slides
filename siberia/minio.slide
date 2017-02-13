@@ -7,19 +7,21 @@ Harshavardhana
 * What is Minio?
 
 .image announce.png
+.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
-* Backends
+* Install
 
-Minio currently implements two types of backends.
-
-   |    Minio    | FS | Erasure | Stability |
-   |-------------|----|---------|-----------|
-   | Standalone  | xx |   xx    |   Stable  |
-   | Distributed | xx |   xx    |   Stable  |
+   $ wget https://dl.minio.io/server/minio/release/linux-amd64/minio
+   $ chmod +x minio
+   $ ./minio version
+   Version: 2017-01-25T03:14:52Z
+   Release-Tag: RELEASE.2017-01-25T03-14-52Z
+   Commit-ID: f8e4700a11065967242b8857045ce7dee607722d
 
 .image curious.png
+.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
-* FS (Filesystem)
+* Standalone FS (Filesystem)
        $ ./minio server /dir1
        Endpoint:  http://192.168.1.106:9000  http://127.0.0.1:9000
        AccessKey: USWUXHGYZQYFYFFIT3RE
@@ -41,7 +43,7 @@ Minio currently implements two types of backends.
 
        Drive Capacity: 93 GiB Free, 165 GiB Total
 
-* Erasure Code
+* Standalone Erasure
        $ minio server /dir1 /dir2 /dir3 ... /dir8
 
        Initializing data volume for the first time.
@@ -63,7 +65,7 @@ Minio currently implements two types of backends.
        Drive Capacity: 92 GiB Free, 220 GiB Total
        Status:         8 Online, 0 Offline. We can withstand [4] more drive failure(s).
 
-* Distributed
+* Distributed Erasure
        $ minio server http://192.168.1.11/export1 http://192.168.1.12/export2 http://192.168.1.13/export3 \
                         http://192.168.1.14/export4 http://192.168.1.15/export5 \
                         http://192.168.1.16/export6 http://192.168.1.17/export7 \
@@ -74,16 +76,39 @@ Minio currently implements two types of backends.
 
 .image distributed.png
 
-* Erasure Code and Bitrot Protection
+* Data Protection
 
 .image erasurecode.png
 
-* Tools
+* Client Tools and Libraries.
 
-- Minio Client (mc) CLI.
-- Minio Client SDKs for Go, Java, JavaScript and Python.
+* Minio Client (mc)
 
-.image biplane.png
+- A modern alternative to UNIX commands like `ls`, `cat`, `cp`, `mirror`, `diff`.
+- Supports filesystems and Amazon S3 (AWS Signature v2 and v4).
+
+Install
+
+        $ go get -u github.com/minio/mc
+
+        $ mc ls play
+        [2017-02-12 22:35:16 PST]     0B ferenginar/
+        [2017-02-12 15:08:45 PST]     0B andoria/
+        [2017-02-12 23:24:21 PST]     0B romulus/
+
+Everyday use
+
+        alias ls='mc ls'
+        alias cp='mc cp'
+        alias cat='mc cat'
+        alias mkdir='mc mb'
+        alias pipe='mc pipe'
+
+* Minio Client Library - Hello World
+
+.code putobject.go
+
+* Why Cloud Native?
 
 * Pitfalls of Monolith Architecture
 
@@ -97,28 +122,17 @@ Minio currently implements two types of backends.
 * Minio Architecture (Cloud Native)
 .image cloudnative.png
 
+* Object Storage
+
+- No more POSIX. Kernel free!
+- Certificate based trust
+- Free to choose any language
+- Stick to Amazon S3 APIs
+- HTTP is the new TCP/IP
+
 * Questions?
 
 [[https://slack.minio.io][slack.minio.io]]
 
 .image graduate.png
-
-* Thank you
-
-* Roadmap
-.image roadmap.png
-
-* Object Storage
-
-- No more POSIX. Kernel free!
-- Certificate based trust 
-- Free to choose any language
-- Stick to Amazon S3 APIs
-- HTTP is the new TCP/IP
-
-* Reference Physical Hardware
-
-- [[http://www.qct.io/Product/Servers/Rackmount-Servers/2U/QuantaGrid-D51B-2U-p256c77c70c83c118][Quanta Grid D51B-2U (OCP Compliant)]]
-- [[http://www.cisco.com/c/en/us/products/servers-unified-computing/ucs-c240-m4-rack-server/index.html][Cisco UCS C240 M4 Rack Server]]
-- [[http://ark.intel.com/products/88286][Intel® Server System R2312WTTYSR]]
-- Works on ARMv6, v7, v8.
+.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
