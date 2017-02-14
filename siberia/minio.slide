@@ -1,4 +1,4 @@
-Minio ❤ Go
+Minio ♥ Go
 A Cloud Native Object Storage
 
 Harshavardhana
@@ -10,10 +10,10 @@ Harshavardhana
 - Best suited for storing photos, videos, backups and container / VM images.
 - Size of an object can range from a few KBs to a maximum of 5TB.
 - Is light enough to be bundled with the application stack, similar to NodeJS, Redis.
-.image announce.png 240 _
-.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
 * Install
+
+- Binary
 
    $ wget https://dl.minio.io/server/minio/release/linux-amd64/minio
    $ chmod +x minio
@@ -21,10 +21,14 @@ Harshavardhana
    Version: 2017-01-25T03:14:52Z
    Release-Tag: RELEASE.2017-01-25T03-14-52Z
    Commit-ID: f8e4700a11065967242b8857045ce7dee607722d
-.image curious.png
-.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
-* Run ¶
+- Docker
+
+   $ docker run --name minio -p 9000:9000 minio/minio server /export
+
+Visit [[http://docs.minio.io/docs/minio-docker-quickstart-guide][Docker quickstart guide]] for more details.
+
+* Run
 - Standalone FS (Filesystem)
        $ ./minio server /dir1
 - Standalone Erasure
@@ -137,9 +141,6 @@ Everyday use
 .code putobject.go
 
 * Questions?
-
 - Community Channel [[https://slack.minio.io][slack.minio.io]]
 - Documentation [[https://docs.minio.io][docs.minio.io]]
 
-.image graduate.png
-.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
