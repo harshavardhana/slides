@@ -1,0 +1,15 @@
+  "parts": [ {
+      "etag": "7f614da9329cd3aebf59b91aadc30bf0",
+      ...
+    }, ... ],
+  "erasure": {
+    "checksum": [ {
+        "hash": "HASH-1",
+        "algorithm": "ALGO",
+        ...
+      }, ... ],
+    "distribution": [ 5, 6, 7, 8, 1, 2, 3, 4 ],
+    ...
+  },
+  "format": "xl",
+  "version": "1.0.0"

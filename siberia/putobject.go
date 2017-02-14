@@ -8,8 +8,8 @@ import (
 
 func main() {
 	// Initialize a new s3Client.
-	s3Client, err := minio.New("play.minio.io:9000", "YOUR-ACCESSKEYID",
-		"YOUR-SECRETACCESSKEY", true)
+	s3Client, err := minio.New("play.minio.io:9000", "Q3AM3UQ867SPQQA43P2F",
+		"zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG", true)
 	if err != nil {
 		log.Fatalln(err)
 	}

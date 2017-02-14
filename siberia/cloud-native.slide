@@ -1,0 +1,21 @@
+* Why Cloud Native?
+
+* Pitfalls of Monolith Architecture
+
+- Grand Unified System
+- Massively Scalable
+- Complex Algorithms
+- All Eggs In One Basket
+
+.image pitfallsign.jpg
+
+* Minio Architecture (Cloud Native)
+.image cloudnative.png
+
+* Object Storage
+
+- No more POSIX. Kernel free!
+- Certificate based trust
+- Free to choose any language
+- Stick to Amazon S3 APIs
+- HTTP is the new TCP/IP
