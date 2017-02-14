@@ -1,12 +1,16 @@
-Minio loves Go
-Cloud Native Object Storage
+Minio ❤ Go
+A Cloud Native Object Storage
 
 Harshavardhana
 @y4m4
 
-* What is Minio?
-
-.image announce.png
+* What is Minio? ☕
+- Minio is an object storage server released under Apache License v2.0.
+- Compatible with Amazon S3 cloud storage service.
+- Best suited for storing photos, videos, backups and container / VM images.
+- Size of an object can range from a few KBs to a maximum of 5TB.
+- Is light enough to be bundled with the application stack, similar to NodeJS, Redis.
+.image announce.png 240 _
 .caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
 * Install
@@ -17,16 +21,12 @@ Harshavardhana
    Version: 2017-01-25T03:14:52Z
    Release-Tag: RELEASE.2017-01-25T03-14-52Z
    Commit-ID: f8e4700a11065967242b8857045ce7dee607722d
-
 .image curious.png
 .caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
 
-* Run (4 Flavors)
+* Run ¶
 - Standalone FS (Filesystem)
        $ ./minio server /dir1
-- Distributed FS (Filesystem)
-       $ ./minio server --address ":9001" /mnt/gfs1
-       $ ./minio server --address ":9002" /mnt/gfs1
 - Standalone Erasure
        $ minio server /dir1 /dir2 /dir3 ... /dir8
 - Distributed Erasure
@@ -34,12 +34,14 @@ Harshavardhana
                         http://192.168.1.14/dir4 http://192.168.1.15/dir5 \
                         http://192.168.1.16/dir6 http://192.168.1.17/dir7 \
                         http://192.168.1.18/dir8
+- **Distributed* **FS* **(Filesystem)*
+       $ ./minio server --address ":9001" /mnt/gfs1
+       $ ./minio server --address ":9002" /mnt/gfs1
 
 * Deployment Architecture
-
 .image distributed.png 520 _
 
-* Distributed How?
+* Distributed How ?
 
 * Dsync (Distributed Syncing)
 - No master node concept.
@@ -61,7 +63,7 @@ Visit [[https://github.com/minio/dsync]] for more examples.
 
 .code erasure.go
 
-* Data Protection
+* Data Protection ?
 
 * Bitrot (blake2b hash)
 - SIMD accelerated pure Go implementation using Go Assembly.
@@ -107,7 +109,7 @@ As measured on Intel Xeon (same as above) with AVX2 version:
 - Replicated across all disks.
 .code xl.json
 
-* Client Tools and Libraries.
+* Client Tool and Libraries
 
 * Minio Client (mc)
 - A cross platform modern alternative to UNIX commands like `ls`, `cp`, `diff` etc.
@@ -136,7 +138,8 @@ Everyday use
 
 * Questions?
 
-[[https://slack.minio.io][slack.minio.io]]
+- Community Channel [[https://slack.minio.io][slack.minio.io]]
+- Documentation [[https://docs.minio.io][docs.minio.io]]
 
 .image graduate.png
 .caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
