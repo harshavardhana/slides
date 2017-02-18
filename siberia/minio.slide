@@ -43,9 +43,9 @@ Visit [[http://docs.minio.io/docs/minio-docker-quickstart-guide][Docker quicksta
        $ ./minio server --address ":9002" /mnt/gfs1
 
 * Deployment Architecture
-.image distributed.png 520 _
+.image distributed.png 600 _
 
-* Distributed How ?
+* Distributed Erasure Code
 
 * Dsync (Distributed Syncing)
 - No master node concept.
@@ -63,11 +63,15 @@ Visit [[http://docs.minio.io/docs/minio-docker-quickstart-guide][Docker quicksta
 
 Visit [[https://github.com/minio/dsync]] for more examples.
 
-* Data Distribution (Erasure Code)
+* Data Distribution (Overview)
+
+.image erasurecode.png 350 _
+
+* Data Distribution (Details)
 
 .code erasure.go
 
-* Data Protection ?
+* Data Protection
 
 * Bitrot (blake2b hash)
 - SIMD accelerated pure Go implementation using Go Assembly.
