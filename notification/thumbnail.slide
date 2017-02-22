@@ -1,0 +1,72 @@
+Minio ♥ Go
+Generate image thumbnails using Minio Event Notification
+
+Harshavardhana
+@y4m4
+
+* What is Minio? ☕
+- Minio is an object storage server released under Apache License v2.0.
+- Compatible with Amazon S3 cloud storage service.
+- Best suited for storing photos, videos, backups and container / VM images.
+- Size of an object can range from a few KBs to a maximum of 5TB.
+- Is light enough to be bundled with the application stack, similar to NodeJS, Redis.
+
+* Install Minio
+
+- Binary
+
+   $ wget https://dl.minio.io/server/minio/release/linux-amd64/minio
+   $ chmod +x minio
+   $ ./minio version
+   Version: 2017-01-25T03:14:52Z
+   Release-Tag: RELEASE.2017-01-25T03-14-52Z
+   Commit-ID: f8e4700a11065967242b8857045ce7dee607722d
+
+- Docker
+
+   $ docker run --name minio -p 9000:9000 minio/minio server /export
+
+Visit [[http://docs.minio.io/docs/minio-docker-quickstart-guide][Docker quickstart guide]] for more details.
+
+* What is Minio Event Notification?
+- Changes in a bucket, such as object uploads and removal, can be monitored using event notification mechanism.
+- Minio supports publishing these events to NATS, AMQP, Elasticsearch, Redis, PostgreSQL, Kafka and Webhooks.
+- API compatible with AWS S3 bucket notifications.
+- Minio implements a special extended API to listen on bucket events, no prior notification targets are needed to use this API.
+
+* Run thumbnailer Agent
+
+- Download _thumbnailer_ code from [[https://github.com/minio/thumbnailer]]
+
+   $ git clone https://github.com/minio/thumbnailer
+   $ npm install
+   $ node thumbnail.js
+   Listening for events on "images"
+
+- Make sure to edit _config/development.json_ with your local Minio parameters.
+
+- Thumbnail generator uses [[http://docs.minio.io/docs/javascript-client-api-reference#listenBucketNotification][listenBucketNotification]] API.
+
+* Generate thumbnail
+
+- Now upload an image using `mc`
+
+   $ mc cp ./toposort/graph.jpg play/images/
+   ./toposort/graph.jpg:  34.29 KB / 34.29 KB ┃▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓┃ 100.00% 386.91 KB/s 0s
+
+- You will see thumbnail generated and saved at _image-processed_ bucket.
+
+   $ node thumbnail.js
+   Listening for events on "images"
+   Uploading new thumbail to "images-processed"
+   Successfully uploaded "graph-thumbnail.jpg" with md5sum "3daeb12a0dfe6ab8f26b69d3b906a645"
+
+- To validate if the thumbnail was saved use _mc_.
+
+  $ mc ls play/images-processed
+  [2017-01-22 23:44:51 PST]   629B graph-thumbnail.jpg
+
+* Questions?
+- Community Channel [[https://slack.minio.io][slack.minio.io]]
+- Documentation [[https://docs.minio.io][docs.minio.io]]
+
